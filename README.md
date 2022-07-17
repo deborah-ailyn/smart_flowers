@@ -1,1 +1,1 @@
-# smart_flowers
+This is smart_flowers, a basic flower classification app to practice python code.
