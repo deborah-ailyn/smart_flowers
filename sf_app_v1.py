@@ -18,13 +18,14 @@ def puppies_checkbox():
         st.write('Great!')        
         display_molly_pic()
 
-def load_model()
-pass
+def load_model():
+    pass
 
-def predict_image()
-pass
+def classify_image():
+    pass
 
-
+def display_image():
+    pass
 
 
 if __name__ == "__main__":
