@@ -1,3 +1,4 @@
+
 import streamlit as st
 from PIL import Image
 from displayers import display_image, display_molly_pic
@@ -19,12 +20,19 @@ def puppies_checkbox():
         display_molly_pic()
 
 def load_model():
-    pass
+    model = None
+    return model
 
-def classify_image():
-    pass
+def classify_image(image, model):
+    pred_flower = None
+    probability = None
+    return probability, pred_flower
 
-def display_image():
+def get_pred_img(pred_flower):
+    pred_img = None
+    return pred_img
+
+def display_result(pred_img, pred_flower, probability):
     pass
 
 
@@ -40,5 +48,14 @@ if __name__ == "__main__":
     
     puppies_checkbox()
 
-    load_model()
+    # Write code here:
 
+    model = load_model()
+
+    probability, pred_flower = classify_image(image,model)
+
+    predicted_image = get_pred_img(pred_flower)
+
+    display_result(pred_img=predicted_image, pred_flower=pred_flower, probability=probability)
+
+    
