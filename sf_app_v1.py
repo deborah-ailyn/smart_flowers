@@ -22,6 +22,7 @@ def puppies_checkbox():
         st.write('Great!')        
         display_molly_pic()
 
+<<<<<<< HEAD
 
 def interpret_image(image):
     image = np.array(image)
@@ -55,6 +56,21 @@ def get_pred_img(pred_flower):
     pred_img = None
     return pred_img
 
+=======
+def load_model():
+    model = None
+    return model
+
+def classify_image(image, model):
+    pred_flower = None
+    probability = None
+    return probability, pred_flower
+
+def get_pred_img(pred_flower):
+    pred_img = None
+    return pred_img
+
+>>>>>>> 94e9419c963fef55c7b8f2865954eefe3f4a9580
 def display_result(pred_img, pred_flower, probability):
     pass
 
