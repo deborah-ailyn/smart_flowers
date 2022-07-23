@@ -13,7 +13,7 @@ if __name__=="__main__":
     predictors, labels = load_training_data((img_height, img_width))
     num_classes = len(np.unique(labels))
     print(num_classes)
-    model = build_model(num_classes)
+    model = build_model(num_classes, img_height, img_width)
     model.fit(predictors, labels, epochs=model_epochs, verbose=True)
 
     save_model(model, model_path)

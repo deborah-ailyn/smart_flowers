@@ -62,7 +62,7 @@ def load_training_data(size):
     label_dummies = pandas.get_dummies(train_labels)
 
     labels =  label_dummies.values.argmax(1)
-    predictors, labels = data_augmentation(predictors, labels)
+    # predictors, labels = data_augmentation(predictors, labels)
 
     # Shuffle the labels and images randomly for better results
 
