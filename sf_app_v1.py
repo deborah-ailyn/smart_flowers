@@ -1,67 +1,19 @@
 
+from matplotlib.pyplot import show
 import streamlit as st
-from PIL import Image
-import numpy as np
-from displayers import display_image, display_molly_pic
+from displayers import display_image, display_similar_flowers
 from machine_learning.utils import load_model
 from machine_learning.clf_training import img_height, img_width
-
-def build_image_uploader():
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file:
-        image = Image.open(uploaded_file)      
-        return image
-
-def success_msg(msg):
-    st.success(msg)
-    
-def puppies_checkbox():
-    result = st.checkbox("Check the box if you like puppies!")
-
-    if result:
-        st.write('Great!')        
-        display_molly_pic()
-
-
-def interpret_image(image):
-    image = np.array(image)
-    image = Image.fromarray(image, mode="RGB")
-    image = np.array(image)  
-    image = np.resize(image, (img_height, img_width, 3))
-    image = np.expand_dims(image, axis=0)
-    return image
-
-def classify_image(image, model):
-    prediction = model.predict(image)
-    prediction /= np.sum(np.abs(prediction))
-    prediction[prediction < 0] = 0
-    labels = dict(zip([0,1,2,3], ["daisy", "roses", "sunflowers", "tulip"]))
-    max_prob = 0
-    max_class = None
-
-    for i in range(len(prediction[0])):
-        print(prediction[0][i])
-        if prediction[0][i] > max_prob:
-            max_prob = prediction[0][i]
-            max_class = i
-    
-    probability = max_prob
-    predicted_class = labels[max_class]
-    print(f"The predicted class is {labels[max_class]} with probability: {max_prob}")
-    
-    return probability, predicted_class
-
-def get_pred_img(pred_flower):
-    pred_img = None
-    return pred_img
-
-def display_result(pred_img, pred_flower, probability):
-    pass
+from sf_utils_v1 import build_image_uploader, display_image, interpret_image, load_model, success_msg, classify_image, get_similar_flowers, show_details_button, display_details
+import webbrowser
 
 
 if __name__ == "__main__":
     
-    st.title("Hello! This is my first steamlit app")
+    st.title("Welcome to Smart Flowers")
+    st.subheader("A quick AI solution to classify flower pictures")
+
+    st.subheader("Load a flower image. Our AI will classify it according to our categories: [daisy, rose, sunflower, tulip]")
 
     image = build_image_uploader()
 
@@ -71,20 +23,14 @@ if __name__ == "__main__":
         
         test_image = interpret_image(image)
         model = load_model()
-        # probability, pred_flower = classify_image(image,model)
-        
-        #TODO complete this logical path:
+        probability, predicted_flower = classify_image(test_image,model)
+        similar_flowers_images = get_similar_flowers(predicted_flower)
 
-    puppies_checkbox()
-
-    # Write code here:
-
-    model = load_model()
-
-    probability, pred_flower = classify_image(image,model)
-
-    predicted_image = get_pred_img(pred_flower)
-
-    display_result(pred_img=predicted_image, pred_flower=pred_flower, probability=probability)
-
+        display_similar_flowers(similar_flowers_images)
     
+        button = show_details_button()
+        if button:
+            display_details(predicted_flower)
+            
+
+            
